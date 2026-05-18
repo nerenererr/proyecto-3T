@@ -1,7 +1,13 @@
 import dao.AsistenteDAO;
+import dao.DesarrolladorDAO;
 import dao.EventoDAO;
+import dao.ProyectoDAO;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import modelos.Asistente;
+import modelos.Desarrollador;
 import modelos.Evento;
+import modelos.Proyecto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -75,6 +81,10 @@ public class Main {
 
      */
 
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("proyecto.odb");
+        ProyectoDAO proyectoDAO = new ProyectoDAO(emf);
+        DesarrolladorDAO desarrolladorDAO = new DesarrolladorDAO(emf);
 
 
 
