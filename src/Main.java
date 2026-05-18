@@ -41,7 +41,7 @@ public class Main {
         //eventoDAO.eliminarEvento(idEventoGenerado);
         //System.out.println("Evento de prueba eliminado.");
 
-        System.out.println("\n--- EJECUCIÓN DE CONSULTAS DE EVENTO ---");
+    /*    System.out.println("\n--- EJECUCIÓN DE CONSULTAS DE EVENTO ---");
         System.out.println("-> Todos los eventos con su número total de asistentes:");
         eventoDAO.obtenerEventosConTotalAsistentes().forEach(System.out::println);
 
@@ -72,5 +72,11 @@ public class Main {
         } else {
             sinInscripcion.forEach(System.out::println);
         }
+
+     */
+
+
+
+
     }
 }
