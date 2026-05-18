@@ -22,6 +22,9 @@ public class Desarrollador {
         this.salario = salario;
     }
 
+    public Desarrollador() {
+    }
+
     public int getId() {
         return id;
     }
