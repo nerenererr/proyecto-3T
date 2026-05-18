@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventoDAO {
-    private String url = "jdbc:mysql://127.0.0.1:3306/eventos_db";
+    private String url = "jdbc:mysql://127.0.0.1:3306/gestoraeventos";
     private String user = "root";
     private String password = "";
 

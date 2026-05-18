@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AsistenteDAO {
-    private String url = "jdbc:mysql://127.0.0.1:3306/gestion_eventos";
+    private String url = "jdbc:mysql://127.0.0.1:3306/gestoraeventos";
     private String user = "root";
-    private String password = "1234";
+    private String password = "";
 
     public int insertarAsistente(Asistente asistente) {
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
