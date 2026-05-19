@@ -86,7 +86,71 @@ public class Main {
         ProyectoDAO proyectoDAO = new ProyectoDAO(emf);
         DesarrolladorDAO desarrolladorDAO = new DesarrolladorDAO(emf);
 
+        Proyecto proyectoPrueba = new Proyecto("Proyecto Prueba", 10000.0, "Go");
+        //proyectoDAO.insertarProyecto(proyectoPrueba);
+        //System.out.println("Proyecto insertado: " + proyectoPrueba);
 
+        Desarrollador desarrolladorPrueba = new Desarrollador("Dev Prueba", 1, 30000.0);
+        //desarrolladorDAO.insertarDesarrollador(desarrolladorPrueba);
+        //System.out.println("Desarrollador insertado: " + desarrolladorPrueba);
 
+        //proyectoPrueba.setNombre("Proyecto Actualizado");
+        //proyectoPrueba.setPresupuesto(15000.0);
+        //proyectoDAO.actualizarProyecto(proyectoPrueba.getId());
+        //System.out.println("Proyecto actualizado.");
+
+        //desarrolladorPrueba.setNombre("Dev Actualizado");
+        //desarrolladorPrueba.setAnyosExperiencia(2);
+        //desarrolladorDAO.actualizarDesarrollador(desarrolladorPrueba.getId());
+        //System.out.println("Desarrollador actualizado.");
+
+        //desarrolladorDAO.asignarDesarrollador(desarrolladorPrueba.getId(), proyectoPrueba.getId());
+        //System.out.println("Desarrollador asignado al proyecto.");
+
+        //desarrolladorDAO.eliminarAsignacion(desarrolladorPrueba.getId(), proyectoPrueba.getId());
+        //System.out.println("Asignación eliminada.");
+
+        //desarrolladorDAO.eliminarDesarrollador(desarrolladorPrueba.getId());
+        //System.out.println("Desarrollador de prueba eliminado.");
+
+        //proyectoDAO.eliminarProyecto(proyectoPrueba.getId());
+        //System.out.println("Proyecto de prueba eliminado.");
+
+        System.out.println("\n--- CONSULTAS DE PROYECTO ---");
+
+        System.out.println("\n-> Número de desarrolladores por proyecto:");
+        proyectoDAO.getNumDesarrolladoresPorProyecto().forEach((nombre, count) ->
+                System.out.println("   " + nombre + ": " + count));
+
+        System.out.println("\n-> Desarrolladores del proyecto con ID 4:");
+        proyectoDAO.getDesarrolladoresPorProyecto(4).forEach(System.out::println);
+
+        System.out.println("\n-> Proyectos con más de 5 desarrolladores:");
+        proyectoDAO.getProyectosMasDe5Desarrolladores().forEach(System.out::println);
+
+        System.out.println("\n-> Top 3 proyectos con mayor presupuesto:");
+        proyectoDAO.getTop3ProyectosPresupuestoAlto().forEach(System.out::println);
+
+        System.out.println("\n-> Proyecto con menor presupuesto en lenguaje 'Java':");
+        Proyecto menorPresupuesto = proyectoDAO.getProyectoPresupuestoBajoPorLenguaje("Java");
+        System.out.println(menorPresupuesto != null ? menorPresupuesto : "No hay proyectos con ese lenguaje.");
+
+        System.out.println("\n--- CONSULTAS DE DESARROLLADOR ---");
+
+        System.out.println("\n-> Proyectos del desarrollador con ID 13:");
+        desarrolladorDAO.getProyectosPorDesarrollador(13).forEach(System.out::println);
+
+        System.out.println("\n-> Media de años de experiencia:");
+        System.out.printf("   %.2f años%n", desarrolladorDAO.getMediaAnyosExperiencia());
+
+        System.out.println("\n-> Desarrolladores sin ningún proyecto asignado:");
+        List<Desarrollador> sinProyectos = desarrolladorDAO.getDesarrolladoresSinProyectos();
+        if (sinProyectos.isEmpty()) {
+            System.out.println("   Todos los desarrolladores tienen al menos un proyecto.");
+        } else {
+            sinProyectos.forEach(System.out::println);
+        }
+
+        emf.close();
     }
 }

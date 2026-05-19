@@ -5,7 +5,7 @@ public class Evento {
     private String nombre;
     private String ubicacion;
     private String fecha;
-    private double precio; // Decimal como double según requerimiento
+    private double precio;
 
     public Evento(int id, String nombre, String ubicacion, String fecha, double precio) {
         this.id = id;

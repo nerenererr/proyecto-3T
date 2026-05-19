@@ -24,19 +24,19 @@ public class DesarrolladorDAO {
         em.close();
     }
 
-    public void  actualizarDesarrollador(int id) {
+    public void actualizarDesarrollador(int id, String nombre, int anyosExperiencia, double salario) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Desarrollador desarrollador = em.find(Desarrollador.class, id);
-        if (desarrollador != null) {
-            desarrollador.setNombre(desarrollador.getNombre());
-            desarrollador.setAnyosExperiencia(desarrollador.getAnyosExperiencia());
-            desarrollador.setSalario(desarrollador.getSalario());
-            desarrollador.setProyectos(desarrollador.getProyectos());
+        Desarrollador d = em.find(Desarrollador.class, id);
+        if (d != null) {
+            d.setNombre(nombre);
+            d.setAnyosExperiencia(anyosExperiencia);
+            d.setSalario(salario);
         }
         em.getTransaction().commit();
         em.close();
     }
+
 
     public void eliminarDesarrollador(int id) {
         EntityManager em = emf.createEntityManager();
@@ -106,9 +106,15 @@ public class DesarrolladorDAO {
 
     public List<Desarrollador> getDesarrolladoresSinProyectos() {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Desarrollador> query = em.createQuery("SELECT d FROM Desarrollador d WHERE SIZE(d.proyectos) = 0", Desarrollador.class);
-        List<Desarrollador> results = query.getResultList();
+        TypedQuery<Desarrollador> query = em.createQuery("SELECT d FROM Desarrollador d", Desarrollador.class);
+        List<Desarrollador> todos = query.getResultList();
+        List<Desarrollador> sinProyectos = new ArrayList<>();
+        for (Desarrollador d : todos) {
+            if (d.getProyectos().isEmpty()) {
+                sinProyectos.add(d);
+            }
+        }
         em.close();
-        return results;
+        return sinProyectos;
     }
 }

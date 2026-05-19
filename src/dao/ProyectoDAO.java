@@ -25,15 +25,14 @@ public class ProyectoDAO {
         em.close();
     }
 
-    public void actualizarProyecto(int id) {
+    public void actualizarProyecto(int id, String nombre, double presupuesto, String lenguaje) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        Proyecto proyecto = em.find(Proyecto.class, id);
-        if (proyecto != null) {
-            proyecto.setNombre(proyecto.getNombre());
-            proyecto.setPresupuesto(proyecto.getPresupuesto());
-            proyecto.setLenguajePrincipal(proyecto.getLenguajePrincipal());
-            proyecto.setDesarrolladores(proyecto.getDesarrolladores());
+        Proyecto p = em.find(Proyecto.class, id);
+        if (p != null) {
+            p.setNombre(nombre);
+            p.setPresupuesto(presupuesto);
+            p.setLenguajePrincipal(lenguaje);
         }
         em.getTransaction().commit();
         em.close();
@@ -83,7 +82,7 @@ public class ProyectoDAO {
 
     public List<Proyecto> getProyectosMasDe5Desarrolladores() {
         EntityManager em = emf.createEntityManager();
-        TypedQuery<Proyecto> query = em.createQuery("SELECT p FROM Proyecto p WHERE SIZE(p.desarrolladores) > 5", Proyecto.class);
+        TypedQuery<Proyecto> query = em.createQuery("SELECT p FROM Proyecto p JOIN p.desarrolladores d GROUP BY p HAVING COUNT(d) > 5", Proyecto.class);
         List<Proyecto> results = query.getResultList();
         em.close();
         return results;
